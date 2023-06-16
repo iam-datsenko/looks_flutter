@@ -16,9 +16,10 @@ class WelcomeScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          getButton(Colors.white, 'Sign up', Colors.transparent, 164,
-              onPress),
-          getButton(Colors.black, 'Sign in', Colors.white, 164, onPress),
+          getButton(Colors.white, 'Sign up', Colors.transparent, 164, onPress,
+              Colors.white.withOpacity(0.1)),
+          getButton(Colors.black, 'Sign in', Colors.white, 164, onPress,
+              Colors.black.withOpacity(0.1)),
         ],
       ),
     );
