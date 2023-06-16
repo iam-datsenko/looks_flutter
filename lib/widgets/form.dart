@@ -42,8 +42,8 @@ class CustomFormState extends State<CustomForm> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     onPress() {
-      // print(email);
-      // print(password);
+      print(email);
+      print(password);
 
       if (_formKey.currentState!.validate()) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -78,10 +78,14 @@ class CustomFormState extends State<CustomForm> {
                   }),
                 },
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    print('smth');
+                  final bool emailValid = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(value!);
+
+                  if (value.isEmpty || !emailValid) {
                     return 'Please enter valid email';
                   }
+
                   return null;
                 },
                 focusNode: emailFocusNode,
@@ -117,6 +121,11 @@ class CustomFormState extends State<CustomForm> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter valid password';
                   }
+
+                  if (value.length < 6) {
+                    return 'Password too short';
+                  }
+
                   return null;
                 },
                 focusNode: passwordFocusNode,
