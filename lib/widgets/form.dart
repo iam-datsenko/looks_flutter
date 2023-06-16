@@ -42,8 +42,8 @@ class CustomFormState extends State<CustomForm> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     onPress() {
-      print(email);
-      print(password);
+      // print(email);
+      // print(password);
 
       if (_formKey.currentState!.validate()) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -58,9 +58,9 @@ class CustomFormState extends State<CustomForm> {
                 ),
               )),
         );
-      }
 
-      _formKey.currentState?.reset();
+        _formKey.currentState?.reset();
+      }
     }
 
     return Form(
@@ -79,6 +79,7 @@ class CustomFormState extends State<CustomForm> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
+                    print('smth');
                     return 'Please enter valid email';
                   }
                   return null;
@@ -86,13 +87,13 @@ class CustomFormState extends State<CustomForm> {
                 focusNode: emailFocusNode,
                 onTapOutside: (event) => {emailFocusNode.unfocus()},
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(18),
+                  // contentPadding: const EdgeInsets.all(18),
                   labelStyle: const TextStyle(
                     color: Colors.grey,
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32),
-                    borderSide: const BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.red),
                   ),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32),
@@ -144,7 +145,7 @@ class CustomFormState extends State<CustomForm> {
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32),
-                    borderSide: const BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.red),
                   ),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32),
