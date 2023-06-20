@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:my_app/ui/button.dart';
 import 'package:my_app/widgets/text_input.dart';
 
-class CustomForm extends StatefulWidget {
-  const CustomForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  CustomFormState createState() {
-    return CustomFormState();
+  SignUpFormState createState() {
+    return SignUpFormState();
   }
 }
 
-class CustomFormState extends State<CustomForm> {
+class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  late FocusNode emailFocusNode;
-  late FocusNode passwordFocusNode;
   late String email;
+  late String phone;
   late String password;
+  late String confirmPassword;
   late bool passwordHidden;
 
   @override
@@ -26,25 +26,19 @@ class CustomFormState extends State<CustomForm> {
     super.initState();
 
     email = '';
+    phone = '';
     password = '';
+    confirmPassword = '';
     passwordHidden = true;
-    emailFocusNode = FocusNode();
-    passwordFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     onPress() {
       print(email);
+      print(phone);
       print(password);
+      print(confirmPassword);
 
       if (_formKey.currentState!.validate()) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -64,18 +58,6 @@ class CustomFormState extends State<CustomForm> {
       }
     }
 
-    validatePassword(value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter valid password';
-      }
-
-      if (value.length < 6) {
-        return 'Password too short';
-      }
-
-      return null;
-    }
-
     validateEmail(value) {
       final bool emailValid = RegExp(
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -88,15 +70,59 @@ class CustomFormState extends State<CustomForm> {
       return null;
     }
 
+    validatePhone(value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter valid password';
+      }
+
+      return null;
+    }
+
+    validatePassword(value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter valid password';
+      }
+
+      if (value.length < 6) {
+        return 'Password too short';
+      }
+
+      return null;
+    }
+
+    validateConfirmPassword(value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter valid confirm password';
+      }
+
+      if (value != password) {
+        return 'Passwords must match';
+      }
+
+      return null;
+    }
+
     setEmail(value) {
       setState(() {
         email = value;
       });
     }
 
+    setPhone(value) {
+      setState(() {
+        phone = value;
+      });
+    }
+
     setPassword(value) {
       setState(() {
         password = value;
+      });
+    }
+
+    setConfirmPassword(value) {
+      setState(() {
+        confirmPassword = value;
       });
     }
 
@@ -117,22 +143,27 @@ class CustomFormState extends State<CustomForm> {
           textInputTemplate(email, 'Email', 'Enter an email address',
               validateEmail, setEmail),
           const SizedBox(height: 8),
+          textInputTemplate(password, 'Phone', 'Enter a phone number',
+              validatePhone, setPhone),
+          const SizedBox(height: 8),
           textInputTemplate(password, 'Password', 'Enter a password',
               validatePassword, setPassword),
+          const SizedBox(height: 8),
+          textInputTemplate(
+              password,
+              'Confirm password',
+              'Enter a confirm password',
+              validateConfirmPassword,
+              setConfirmPassword),
           const SizedBox(height: 48),
           getButton(
               Colors.white,
-              'Sign in',
+              'Sign up',
               const Color.fromARGB(255, 203, 57, 145),
               358,
               onPress,
               Colors.white.withOpacity(0.1)),
           const SizedBox(height: 24),
-          const Text(
-            'Recovery password',
-            style: TextStyle(
-                fontSize: 16, fontFamily: 'Alice', fontWeight: FontWeight.w400),
-          ),
         ],
       ),
     );

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 
 class CustomTextInput extends StatefulWidget {
@@ -18,12 +16,12 @@ class CustomTextInput extends StatefulWidget {
       required this.setState});
 
   @override
-  _CustomTextInputState createState() {
-    return _CustomTextInputState();
+  CustomTextInputState createState() {
+    return CustomTextInputState();
   }
 }
 
-class _CustomTextInputState extends State<CustomTextInput> {
+class CustomTextInputState extends State<CustomTextInput> {
   late FocusNode inputFocusNode;
   late bool passwordHidden;
 
@@ -54,10 +52,17 @@ class _CustomTextInputState extends State<CustomTextInput> {
           validator: widget.validate,
           focusNode: inputFocusNode,
           onTapOutside: (event) => {inputFocusNode.unfocus()},
-          obscureText: widget.labelText == 'Password' ? passwordHidden : false,
+          obscureText: widget.labelText == 'Password' ||
+                  widget.labelText == 'Confirm password'
+              ? passwordHidden
+              : false,
+          keyboardType: widget.labelText == 'Phone'
+              ? TextInputType.phone
+              : TextInputType.text,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(18),
-            suffixIcon: widget.labelText == 'Password'
+            suffixIcon: widget.labelText == 'Password' ||
+                    widget.labelText == 'Confirm password'
                 ? IconButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
