@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+
 import '../ui/button.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+  final void Function() onPressSignIn;
+  final void Function() onPressSignUp;
+
+  const WelcomeScreen(
+      {super.key, required this.onPressSignIn, required this.onPressSignUp});
 
   @override
   Widget build(BuildContext context) {
-    onPress() => {
-          // ignore: avoid_print
-          print('sign')
-        };
-
     Widget buttonSection = Container(
       margin: const EdgeInsets.only(bottom: 70),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          getButton(Colors.white, 'Sign up', Colors.transparent, 164, onPress,
-              Colors.white.withOpacity(0.1)),
-          getButton(Colors.black, 'Sign in', Colors.white, 164, onPress,
+          getButton(Colors.white, 'Sign up', Colors.transparent, 164,
+              onPressSignUp, Colors.white.withOpacity(0.1)),
+          getButton(Colors.black, 'Sign in', Colors.white, 164, onPressSignIn,
               Colors.black.withOpacity(0.1)),
         ],
       ),

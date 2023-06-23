@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import '../screens/welcome_screen.dart';
-import '../screens/sign_screen.dart';
+
+import '../screens/SignScreen/sign_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,6 +9,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: SignScreen());
+    return const MaterialApp(
+      home: SignScreen(),
+      restorationScopeId: "root",
+    );
   }
 }

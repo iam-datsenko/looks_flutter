@@ -17,7 +17,6 @@ class SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
   late String email;
   late String password;
-  late bool passwordHidden;
 
   @override
   void initState() {
@@ -25,7 +24,6 @@ class SignInFormState extends State<SignInForm> {
 
     email = '';
     password = '';
-    passwordHidden = true;
   }
 
   @override
@@ -88,31 +86,30 @@ class SignInFormState extends State<SignInForm> {
       });
     }
 
-    Widget textInputTemplate(value, labelText, hintText, validate, setState) {
-      return CustomTextInput(
-          value: value,
-          labelText: labelText,
-          hintText: hintText,
-          validate: validate,
-          setState: setState);
-    }
-
     return Form(
       key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          textInputTemplate(email, 'Email', 'Enter an email address',
-              validateEmail, setEmail),
+          CustomTextInput(
+              value: email,
+              labelText: 'Email',
+              hintText: 'Enter an email address',
+              validate: validateEmail,
+              setState: setEmail),
           const SizedBox(height: 8),
-          textInputTemplate(password, 'Password', 'Enter a password',
-              validatePassword, setPassword),
+          CustomTextInput(
+              value: password,
+              labelText: 'Password',
+              hintText: 'Enter a password',
+              validate: validatePassword,
+              setState: setPassword),
           const SizedBox(height: 48),
           getButton(
               Colors.white,
               'Sign in',
               const Color.fromARGB(255, 203, 57, 145),
-              358,
+              380,
               onPress,
               Colors.white.withOpacity(0.1)),
           const SizedBox(height: 24),

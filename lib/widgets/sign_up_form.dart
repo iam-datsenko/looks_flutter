@@ -19,7 +19,6 @@ class SignUpFormState extends State<SignUpForm> {
   late String phone;
   late String password;
   late String confirmPassword;
-  late bool passwordHidden;
 
   @override
   void initState() {
@@ -29,7 +28,6 @@ class SignUpFormState extends State<SignUpForm> {
     phone = '';
     password = '';
     confirmPassword = '';
-    passwordHidden = true;
   }
 
   @override
@@ -126,41 +124,44 @@ class SignUpFormState extends State<SignUpForm> {
       });
     }
 
-    Widget textInputTemplate(value, labelText, hintText, validate, setState) {
-      return CustomTextInput(
-          value: value,
-          labelText: labelText,
-          hintText: hintText,
-          validate: validate,
-          setState: setState);
-    }
-
     return Form(
       key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          textInputTemplate(email, 'Email', 'Enter an email address',
-              validateEmail, setEmail),
+          CustomTextInput(
+              value: email,
+              labelText: 'Email',
+              hintText: 'Enter an email address',
+              validate: validateEmail,
+              setState: setEmail),
           const SizedBox(height: 8),
-          textInputTemplate(password, 'Phone', 'Enter a phone number',
-              validatePhone, setPhone),
+          CustomTextInput(
+              value: phone,
+              labelText: 'Phone',
+              hintText: 'Enter an phone number',
+              validate: validatePhone,
+              setState: setPhone),
           const SizedBox(height: 8),
-          textInputTemplate(password, 'Password', 'Enter a password',
-              validatePassword, setPassword),
+          CustomTextInput(
+              value: password,
+              labelText: 'Password',
+              hintText: 'Enter a password',
+              validate: validatePassword,
+              setState: setPassword),
           const SizedBox(height: 8),
-          textInputTemplate(
-              password,
-              'Confirm password',
-              'Enter a confirm password',
-              validateConfirmPassword,
-              setConfirmPassword),
+          CustomTextInput(
+              value: confirmPassword,
+              labelText: 'Confirm assword',
+              hintText: 'Enter a confirm password',
+              validate: validateConfirmPassword,
+              setState: setConfirmPassword),
           const SizedBox(height: 48),
           getButton(
               Colors.white,
               'Sign up',
               const Color.fromARGB(255, 203, 57, 145),
-              358,
+              380,
               onPress,
               Colors.white.withOpacity(0.1)),
           const SizedBox(height: 24),
